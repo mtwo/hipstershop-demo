@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Your Order Confirmation</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,500" rel="stylesheet">
+    <style>
+      div#title {
+        position: absolute;
+        height: 106px;
+        width: 600px;
+        top: 20px;
+        left: 20px;
+      }
+      div#title_bar{
+        position: absolute;
+        height: 61px;
+        width: 11px;
+        left: 0px;
+        top: 45px;
+        background-color: rgb(66, 171, 118);
+      }
+      h2#title_thanks{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 18px;
+        color: rgb(94,94,94);
+        position: absolute;
+        left: 25px;
+        top: 32px;
+      }
+      h1#title_cost{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 36px;
+        color: rgb(67,67,67);
+        position: absolute;
+        left: 25px;
+        top: 45px;
+      }
+      div#order{
+        position: absolute;
+        height: 60px;
+        width: 600px;
+        top: 166px;
+        left: 20px;
+      }
+      img#order_icon{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      h3#order_title{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 16px;
+        color: rgb(94,94,94);
+        position: absolute;
+        left: 80px;
+        top: -5px;
+      }
+      p#order_id{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 28px;
+        color: rgb(67,67,67);
+        position: absolute;
+        left: 80px;
+        top: 0px;
+      }
+      div#shipping{
+        position: relative;
+        width: 600px;
+        top: 270px;
+        left: 20px;
+      }
+      img#shipping_icon{
+        position: absolute;
+        top: 0px;
+        left: 0px;
+      }
+      h3#shipping_title{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 16px;
+        color: rgb(94,94,94);
+        position: relative;
+        left: 80px;
+        top: 10px;
+      }
+      p#shipping_id{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 28px;
+        color: rgb(67,67,67);
+        position: relative;
+        left: 80px;
+        top: -20px;
+      }
+      p#shipping_method{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        color: rgb(94,94,94);
+        position: relative;
+        left: 80px;
+        top: -47px;
+      }
+      p#shipping_cost{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        color: rgb(94,94,94);
+        position: relative;
+        left: 80px;
+        top: -60px;
+      }
+      p#shipping_address{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 16px;
+        color: rgb(94,94,94);
+        position: relative;
+        left: 80px;
+        top: -72px;
+      }
+      div#items{
+        position: relative;
+        top: 200px;
+        width: 600px;
+        left: 20px;
+      }
+      h3#items_title{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        color: rgb(94,94,94);
+        position: absolute;
+        left: 0px;
+        top: -20px;
+      }
+      div#items_list{
+        position: relative;
+        left: 0px;
+        top: 30px;
+        width: 600px;
+        height: 75px;
+        padding-bottom: 5px;
+      }
+      div#item_bar{
+        position: absolute;
+        height: 70px;
+        width: 11px;
+        left: 0px;
+        top: 0px;
+        background-color: rgb(67, 67, 67);
+      }
+      div#item_panel{
+        position: absolute;
+        height: 70px;
+        width: 589px;
+        left: 11px;
+        top: 0px;
+        background-color: rgb(242, 242, 242);
+      }
+      p#item_id{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 15px;
+        color: rgb(67,67,67);
+        position: absolute;
+        left: 10px;
+        top: -9px;
+      }
+      p#item_no{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 100;
+        font-size: 15px;
+        color: rgb(67,67,67);
+        position: absolute;
+        left: 10px;
+        top: 11px;
+      }
+      p#item_price{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 500;
+        font-size: 15px;
+        color: rgb(67,67,67);
+        position: absolute;
+        left: 10px;
+        top: 32px;
+      }
+      div#ad{
+        position: relative;
+        top: 220px;
+        width: 600px;
+        left: 20px;
+      }
+      h3#ad_title{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 18px;
+        color: rgb(94,94,94);
+        position: absolute;
+        left: 0px;
+        top: 0px;
+      }
+      img#ad_img{
+        position: relative;
+        top: 50px;
+      }
+      div#notes{
+        position: absolute;
+        bottom: 0px;
+        width: 600px;
+        left: 20px;
+      }
+      p.notes{
+        font-family: 'Roboto', sans-serif;
+        font-weight: 400;
+        font-size: 8px;
+        color: rgb(94,94,94);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="title">
+      <div id="title_bar"></div>
+      <h2 id="title_thanks">Thanks for shopping with us!</h2>
+      <h1 id="title_cost"> Your Order Confirmation</h1>
+    </div>
+    <div id="order">
+      <img id="order_icon" src="https://storage.googleapis.com/microservice-demo/order.png" width="70" height="70">
+      <h3 id="order_title">Order ID</h3>
+      <p id="order_id">#{{ order.order_id }}</p>
+    </div>
+    <div id="shipping">
+      <img id="shipping_icon" src="https://storage.googleapis.com/microservice-demo/shipping.png" width="65" height="65">
+      <h3 id="shipping_title">Shipping</h3>
+      <p id="shipping_id">#{{ order.shipping_tracking_id }}</p>
+      <p id="shipping_method">Google Cloud</p>
+      <p id="shipping_cost">{{ order.shipping_cost.amount.decimal + order.shipping_cost.amount.fractional / 100 }} {{ order.shipping_cost.currency_code }}</p>
+      <p id="shipping_address">{{ order.shipping_address.street_address_1 }}, {{order.shipping_address.street_address_2}}, {{order.shipping_address.city}}, {{order.shipping_address.country}} {{order.shipping_address.zip_code}}</p>
+    </div>
+    <div id="items">
+      <h3 id="items_title">Items</h3>
+      {% for item in order.items %}
+      <div id="items_list">
+        <div id="item_bar"></div>
+        <div id="item_panel">
+          <p id="item_id">Item ID #{{ item.item.product_id }}</p>
+          <p id="item_no">x {{ item.item.quantity }}</p>
+          <p id="item_price">{{ item.cost.amount.decimal + item.cost.amount.fractional/100 }} {{ item.cost.currency_code }}</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    <div id="ad">
+      <h3 id="ad_title">Three days, one cloud</h3>
+      <img id="ad_img" src="https://storage.googleapis.com/microservice-demo/cloud.jpeg" width="600" height="265">
+    </div>
+    <div id="notes">
+      <p class="notes">The order icon is designed by Gergor Cresnar from the Noun project, licensed under CC BY 3.0.</p>
+      <p class="notes">The shipping icon is designed by Becris from the Noun project, licensed under CC BY 3.0.</p>
+    </div>
+  </body>
+</html>
