@@ -1,24 +1,55 @@
 # Email Service for Cloud Next 2018 Microservices Demo
 
-This email service sends a confirmation email when an order is completed.
+This email service sends a confirmation email when an order is completed. It
+features two different mode:
 
-## Build
+* Dummy mode: accepts requests but does not send any message; instead, write a log entry to stdout
+* Cloud Mail mode: accepts requests and send messages via [Google Cloud Mail](https://cloud.google.com/mail).
 
-This service uses Google Cloud Mail for sending emails. Google Cloud Mail is
-currently in Alpha release; see https://cloud.google.com/mail/docs for
-instructions on getting started. 
+## Building the image
 
-More specifically:
+Run command:
 
-* Enable Google Cloud Mail API.
-* Set up a service account authorized to access Google Cloud Mail. Download the JSON keyfile.
-* Create and verify a domain or an email address in Google Cloud Mail.
-* Create a sender.
-* Modify the dockerfile. Set the following environment variables:
+    `docker build -f Dockerfile .`
 
-```
-export GOOGLE_APPLICATION_CREDENTIALS="/path/to/JSON/keyfile"
-export GCLOUD_PROJECT="YOUR-PROJECT-NAME"
-export CLOUD_MAIL_FROM_ADDRESS="YOUR-FROM-ADDRESS"
-```
+to build the image.
 
+## Running the service locally
+
+### Dummy mode
+
+To start up the service in dummy mode, run command
+
+    `docker run -it -p 8080:8080 [YOUR-IMAGE-ID]`
+
+You should see a message, `Starting the email service in dummy mode.` in the output.
+
+Call method `send_confirmation_email` in `email_client.py`; pass an email address
+and an order as parameters. Refer to `protos/ms_demo_mail_service.proto` for
+the format of the order message. A log entry should show up in the output of the
+service.
+
+### Cloud Mail mode
+
+Refer to the [Google Cloud Mail documentation](https://cloud.google.com/mail/docs) to get started.
+After setting up Cloud Mail, [create a volume](https://docs.docker.com/storage/volumes/#create-and-manage-volumes),
+place your service account JSON key in the volume mountpoint and start up the
+service with the volume:
+
+    ```
+    docker run -it -p 8080:8080 ---mount [MOUNT-SOURCE-AND-TARGET]  \
+    [IMAGE-ID]
+    -m
+    -c [PATH_TO_CREDENTIALS]
+    -p [GOOGLE_CLOUD_PROJECT]
+    -a [ENVELOPE_FROM_ADDRESS]
+    -s [CLOUD-MAIL-SENDER-ID]
+    -r [CLOUD-MAIL-REGION]
+    ```
+
+You should see a message, `Starting the email service with Cloud Mail integration.` in the output.
+
+Call method `send_confirmation_email` in `email_client.py`; pass an email address
+and an order as parameters. Refer to `protos/ms_demo_mail_service.proto` for
+the format of the order message. A message id should show up in the output of the
+service.
