@@ -1,20 +1,12 @@
-# Use the Google Cloud Platform provided Debian 9 Docker (Stretch) image
-# as the base image
-FROM gcr.io/google-appengine/debian9
+# Use the grpc.io provided Python image as the base image
+FROM grpc/python:1.0
 
-# Install updates and dependencies
-RUN apt-get update -y && \
-	apt-get install --no-install-recommends -y -q \
-        python \
-        python3 && \
-    apt-get clean
+# Install required packages
+RUN apt-get update && apt-get install python3-pip -y
 
 # Add the application
-ADD email_server.py /email_server
-ADD ms_demo_mail_service_pb2_grpc.py /email_server
-ADD ms_demo_mail_service_pb2.py /mail_server
-ADD requirements.txt .
-ADD templates /email_server/templates
+COPY email_server.py demo_pb2_grpc.py demo_pb2.py requirements.txt /email_server/
+ADD templates /email_server/templates/
 
 # Add Google Cloud Mail client library for Python
 # Google Cloud Mail is currently in Alpha. Client libraries provided for
@@ -24,17 +16,12 @@ ADD templates /email_server/templates
 # recommended for production use. It is not subject to any SLA or deprecation
 # policy.
 # See https://cloud.google.com/mail/docs for more information
-ADD cloud_mail_v1alpha3_python/ ./cloud_mail_v1alpha3_python
+ADD cloudmail-v1alpha3 /cloudmail-v1alpha3/
 
-# Install required packages
-RUN pip install --upgrade -r requirements.txt
+RUN python3 -m pip install --upgrade -r /email_server/requirements.txt
+RUN python3 -m pip install -e cloudmail-v1alpha3/
 
-# Install Google Cloud Mail client library for Python
-RUN pip install -e cloud_mail_v1alpha3_python/
+EXPOSE 8080
 
-# Set up environment variables
-ENV GOOGLE_APPLICATION_CREDENTIALS="/path/to/JSON/keyfile"
-ENV GCLOUD_PROJECT="YOUR-PROJECT-NAME"
-ENV CLOUD_MAIL_FROM_ADDRESS="YOUR-FROM-ADDRESS"
-
-CMD gunicorn -w 10 /email_server/email_server.py
+WORKDIR /email_server
+ENTRYPOINT [ "python3", "email_server.py" ]
