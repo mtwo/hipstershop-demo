@@ -1,6 +1,8 @@
 # Use the grpc.io provided Python image as the base image
 FROM grpc/python:1.0
 
+RUN apt-get update && apt-get install python3-pip -y
+
 # Add the application
 ADD email_server /email_server/
 
@@ -15,7 +17,6 @@ ADD email_server /email_server/
 ADD cloudmail-v1alpha3 /cloudmail-v1alpha3/
 
 # Install required packages
-RUN apt-get update && apt-get install python3-pip -y
 RUN python3 -m pip install --upgrade -r /email_server/requirements.txt
 RUN python3 -m pip install -e cloudmail-v1alpha3/
 
