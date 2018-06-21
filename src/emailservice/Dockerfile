@@ -1,6 +1,9 @@
 # Use the grpc.io provided Python image as the base image
 FROM grpc/python:1.0
 
+# Install required packages
+RUN apt-get update && apt-get install python3-pip -y
+
 # Add the application
 COPY email_server.py demo_pb2_grpc.py demo_pb2.py requirements.txt /email_server/
 ADD templates /email_server/templates/
@@ -15,8 +18,6 @@ ADD templates /email_server/templates/
 # See https://cloud.google.com/mail/docs for more information
 ADD cloudmail-v1alpha3 /cloudmail-v1alpha3/
 
-# Install required packages
-RUN apt-get update && apt-get install python3-pip -y
 RUN python3 -m pip install --upgrade -r /email_server/requirements.txt
 RUN python3 -m pip install -e cloudmail-v1alpha3/
 
