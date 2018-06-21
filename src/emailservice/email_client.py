@@ -1,13 +1,13 @@
 import grpc
 
-import ms_demo_mail_service_pb2
-import ms_demo_mail_service_pb2_grpc
+import demo_pb2
+import demo_pb2_grpc
 
 def send_confirmation_email(email, order):
   channel = grpc.insecure_channel('0.0.0.0:8080')
-  stub = ms_demo_mail_service_pb2_grpc.EmailServiceStub(channel)
+  stub = demo_pb2_grpc.EmailServiceStub(channel)
   try:
-    response = stub.SendOrderConfirmation(ms_demo_mail_service_pb2.SendOrderConfirmationRequest(
+    response = stub.SendOrderConfirmation(demo_pb2.SendOrderConfirmationRequest(
       email = email,
       order = order
     ))

@@ -9,8 +9,8 @@ from google.api_core.exceptions import GoogleAPICallError
 from google.cloud.mail import CloudMailClient
 import grpc
 
-import ms_demo_mail_service_pb2
-import ms_demo_mail_service_pb2_grpc
+import demo_pb2
+import demo_pb2_grpc
 
 # Loads confirmation email template from file
 env = Environment(
@@ -19,7 +19,7 @@ env = Environment(
 )
 template = env.get_template('confirmation.html')
 
-class EmailService(ms_demo_mail_service_pb2_grpc.EmailServiceServicer):
+class EmailService(demo_pb2_grpc.EmailServiceServicer):
   def __init__(self):
     self.client = CloudMailClient()
     super().__init__()
@@ -55,7 +55,7 @@ class EmailService(ms_demo_mail_service_pb2_grpc.EmailServiceServicer):
       context.set_details("An error occurred when preparing the confirmation page.")
       print(err.message)
       context.set_code(grpc.StatusCode.INTERNAL)
-      return ms_demo_mail_service_pb2.Empty()
+      return demo_pb2.Empty()
 
     try:
       EmailService.send_email(self.client, email, confirmation)
@@ -63,22 +63,22 @@ class EmailService(ms_demo_mail_service_pb2_grpc.EmailServiceServicer):
       context.set_details("An error occurred when sending the email.")
       print(err.message)
       context.set_code(grpc.StatusCode.INTERNAL)
-      return ms_demo_mail_service_pb2.Empty()
+      return demo_pb2.Empty()
 
-    return ms_demo_mail_service_pb2.Empty()
+    return demo_pb2.Empty()
 
-class DummyEmailService(ms_demo_mail_service_pb2_grpc.EmailServiceServicer):
+class DummyEmailService(demo_pb2_grpc.EmailServiceServicer):
   def SendOrderConfirmation(self, request, context):
     print('A request to send order confirmation email to {} has been received.'.format(request.email))
 
-    return ms_demo_mail_service_pb2.Empty()
+    return demo_pb2.Empty()
 
 def start(dummy_mode):
   server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
   if dummy_mode:
-    ms_demo_mail_service_pb2_grpc.add_EmailServiceServicer_to_server(DummyEmailService(), server)
+    demo_pb2_grpc.add_EmailServiceServicer_to_server(DummyEmailService(), server)
   else:
-    ms_demo_mail_service_pb2_grpc.add_EmailServiceServicer_to_server(EmailService(), server)
+    demo_pb2_grpc.add_EmailServiceServicer_to_server(EmailService(), server)
   server.add_insecure_port('[::]:8080')
   server.start()
   try:
@@ -90,19 +90,17 @@ def start(dummy_mode):
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser()
-  parser.add_argument('-d', '--dummy', help='run the email service in dummy mode (default)', action="store_true")
   parser.add_argument('-m', '--mail', help='run the email service with Cloud Mail integration', action="store_true")
-  parser.add_argument('-c', '--credentials', help='path to the service account json keyfile')
   parser.add_argument('-p', '--project', help='your google cloud project id')
   parser.add_argument('-a', '--address', help='envelope from address Cloud Mail uses to send email')
   parser.add_argument('-s', '--sender', help='the id of your Cloud Mail sender')
   parser.add_argument('-r', '--region', help='the region of your Cloud Mail resources')
   args = parser.parse_args()
-  if args.mail:
+  if not args.mail:
+    print('Starting the email service in dummy mode.')
+    start(dummy_mode = True)
+  else:
     print('Starting the email service with Cloud Mail integration.')
-    if args.credentials == None:
-      print('Error: Path to service account JSON keyfile is missing. See the README file for more information.')
-      sys.exit(1)
     if args.project == None:
       print('Error: Google Cloud Project ID is missing. See the README file for more information.')
       sys.exit(1)
@@ -115,12 +113,8 @@ if __name__ == '__main__':
     if args.region == None:
       print('Error: Cloud Mail region setting is missing. See the README file for more information.')
       sys.exit(1)
-    os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = args.credentials
     project_id = args.project
     from_address = args.address
     sender_id = args.sender
     region = args.region
     start(dummy_mode = False)
-  else:
-    print('Starting the email service in dummy mode.')
-    start(dummy_mode = True)

@@ -25,22 +25,22 @@ To start up the service in dummy mode, run command
 You should see a message, `Starting the email service in dummy mode.` in the output.
 
 Call method `send_confirmation_email` in `email_client.py`; pass an email address
-and an order as parameters. Refer to `protos/ms_demo_mail_service.proto` for
+and an order as parameters. Refer to the proto file for
 the format of the order message. A log entry should show up in the output of the
 service.
 
 ### Cloud Mail mode
 
 Refer to the [Google Cloud Mail documentation](https://cloud.google.com/mail/docs) to get started.
-After setting up Cloud Mail, [create a volume](https://docs.docker.com/storage/volumes/#create-and-manage-volumes),
-place your service account JSON key in the volume mountpoint and start up the
+After setting up Cloud Mail, mount a volume with your service account JSON key file in it,
+create environment variable `GOOGLE_APPLICATION_CREDENTIALS`
+with the path to the key file and start the
 service with the volume:
 
     ```
     docker run -it -p 8080:8080 ---mount [MOUNT-SOURCE-AND-TARGET]  \
     [IMAGE-ID]
     -m
-    -c [PATH_TO_CREDENTIALS]
     -p [GOOGLE_CLOUD_PROJECT]
     -a [ENVELOPE_FROM_ADDRESS]
     -s [CLOUD-MAIL-SENDER-ID]
@@ -50,6 +50,6 @@ service with the volume:
 You should see a message, `Starting the email service with Cloud Mail integration.` in the output.
 
 Call method `send_confirmation_email` in `email_client.py`; pass an email address
-and an order as parameters. Refer to `protos/ms_demo_mail_service.proto` for
+and an order as parameters. Refer to the proto file for
 the format of the order message. A message id should show up in the output of the
 service.
