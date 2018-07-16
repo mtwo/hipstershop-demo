@@ -5,3 +5,5 @@ MarkupSafe==1.0
 protobuf==3.6.0
 six==1.11.0
 grpc-google-iam-v1==0.11.4
+opencensus
+google-cloud-trace

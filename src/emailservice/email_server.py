@@ -12,6 +12,24 @@ import grpc
 import demo_pb2
 import demo_pb2_grpc
 
+# from opencensus.trace.ext.grpc import server_interceptor
+# from opencensus.trace.samplers import always_on
+# from opencensus.trace.exporters import stackdriver_exporter
+
+# sampler = always_on.AlwaysOnSampler()
+# exporter = stackdriver_exporter.StackdriverExporter()
+# tracer_interceptor = server_interceptor.OpenCensusServerInterceptor(
+#     sampler, exporter)
+
+# try:
+#   import googleclouddebugger
+#   googleclouddebugger.enable(
+#     module='emailservice',
+#     version='1'
+#   )
+# except ImportError:
+#   pass
+
 # Loads confirmation email template from file
 env = Environment(
     loader=FileSystemLoader('templates'),
@@ -74,7 +92,7 @@ class DummyEmailService(demo_pb2_grpc.EmailServiceServicer):
     return demo_pb2.Empty()
 
 def start(dummy_mode):
-  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10)) #, interceptors=(tracer_interceptor,))
   if dummy_mode:
     demo_pb2_grpc.add_EmailServiceServicer_to_server(DummyEmailService(), server)
   else:

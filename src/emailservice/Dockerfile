@@ -20,6 +20,8 @@ ADD cloudmail-v1alpha3 /cloudmail-v1alpha3/
 
 RUN python3 -m pip install --upgrade -r /email_server/requirements.txt
 RUN python3 -m pip install -e cloudmail-v1alpha3/
+RUN python3 -m pip install --user opencensus
+RUN python3 -m pip install --user google-cloud-trace
 
 EXPOSE 8080
 
