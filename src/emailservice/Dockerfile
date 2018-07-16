@@ -1,11 +1,11 @@
 # Use the grpc.io provided Python image as the base image
 FROM grpc/python:1.0
 
-# Install required packages
-RUN apt-get update && apt-get install python3-pip -y
-RUN pip install opencensus
-RUN pip install google-cloud-trace
-RUN pip install google-python-cloud-debugger
+RUN apt-get -qqy update && \
+        apt-get -qqy install python3-pip \
+        pip install opencensus \
+            google-cloud-trace \
+            google-python-cloud-debugger
 
 # Add the application
 COPY email_server.py demo_pb2_grpc.py demo_pb2.py requirements.txt /email_server/

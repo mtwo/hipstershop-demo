@@ -29,7 +29,7 @@ import demo_pb2_grpc
 # try:
 #     googleclouddebugger.enable(
 #         module='emailserver',
-#         version='[VERSION]'
+#         version='[1.0.0]'
 #     )
 # except:
 #     pass
