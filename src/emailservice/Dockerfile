@@ -3,6 +3,9 @@ FROM grpc/python:1.0
 
 # Install required packages
 RUN apt-get update && apt-get install python3-pip -y
+RUN pip install opencensus
+RUN pip install google-cloud-trace
+RUN pip install google-python-cloud-debugger
 
 # Add the application
 COPY email_server.py demo_pb2_grpc.py demo_pb2.py requirements.txt /email_server/
@@ -20,8 +23,6 @@ ADD cloudmail-v1alpha3 /cloudmail-v1alpha3/
 
 RUN python3 -m pip install --upgrade -r /email_server/requirements.txt
 RUN python3 -m pip install -e cloudmail-v1alpha3/
-RUN python3 -m pip install --user opencensus
-RUN python3 -m pip install --user google-cloud-trace
 
 EXPOSE 8080
 

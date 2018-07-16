@@ -7,24 +7,16 @@ import demo_pb2_grpc
 # from opencensus.trace.exporters import stackdriver_exporter
 # from opencensus.trace.ext.grpc import client_interceptor
 
-# exporter = stackdriver_exporter.StackdriverExporter()
-# tracer = Tracer(exporter=exporter)
-# tracer_interceptor = client_interceptor.OpenCensusClientInterceptor(
-#     tracer,
-#     host_port='0.0.0.0:8080')
-
 # try:
-#   import googleclouddebugger
-#   googleclouddebugger.enable(
-#     module='emailclient',
-#     version='1'
-#   )
-# except ImportError:
-#   pass
+#     exporter = stackdriver_exporter.StackdriverExporter()
+#     tracer = Tracer(exporter=exporter)
+#     tracer_interceptor = client_interceptor.OpenCensusClientInterceptor(tracer, host_port='0.0.0.0:8080')
+# except:
+#     tracer_interceptor = client_interceptor.OpenCensusClientInterceptor()
 
 def send_confirmation_email(email, order):
   channel = grpc.insecure_channel('0.0.0.0:8080')
-  #channel = grpc.intercept_channel(channel, tracer_interceptor)
+  # channel = grpc.intercept_channel(channel, tracer_interceptor)
   stub = demo_pb2_grpc.EmailServiceStub(channel)
   try:
     response = stub.SendOrderConfirmation(demo_pb2.SendOrderConfirmationRequest(
