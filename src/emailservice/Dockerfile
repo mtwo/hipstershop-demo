@@ -2,7 +2,7 @@
 FROM grpc/python:1.0
 
 RUN apt-get -qqy update && \
-        apt-get -qqy install python3-pip \
+        apt-get -qqy install python3-pip && \
         pip install opencensus \
             google-cloud-trace \
             google-python-cloud-debugger
