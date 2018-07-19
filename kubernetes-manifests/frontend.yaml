@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: gcr.io/istio-next/frontend
+          image: gcr.io/hipstershop-demo/frontend
           ports:
           - containerPort: 8080
           readinessProbe:

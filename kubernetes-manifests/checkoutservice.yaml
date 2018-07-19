@@ -10,7 +10,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: gcr.io/istio-next/checkoutservice
+          image: gcr.io/hipstershop-demo/checkoutservice
           ports:
           - containerPort: 5050
           readinessProbe:

@@ -11,7 +11,7 @@ spec:
       terminationGracePeriodSeconds: 5
       containers:
       - name: server
-        image: gcr.io/istio-next/paymentservice
+        image: gcr.io/hipstershop-demo/paymentservice
         ports:
         - containerPort: 50051
         readinessProbe:
