@@ -96,6 +96,103 @@
                 "units": 12,
                 "nanos": 300000000
             }
+        },
+        {
+            "id": "OLJCESPC71",
+            "name": "Backwards Typewriter",
+            "description": "This typewriter looks good in your living room.",
+            "picture": "/static/img/products/typewriter.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 76,
+                "nanos": 990000000
+            }
+        },
+        {
+            "id": "66VCHSJNU2",
+            "name": "Backwards Camera Lens",
+            "description": "You won't have a camera to use it and it probably doesn't work anyway.",
+            "picture": "/static/img/products/camera-lens.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 21,
+                "nanos": 490000000
+            }
+        },
+        {
+            "id": "1YMWWN1N43",
+            "name": "Backwards Barista Kit",
+            "description": "Always wanted to brew coffee with Chemex and Aeropress at home?",
+            "picture": "/static/img/products/barista-kit.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 421
+            }
+        },
+        {
+            "id": "L9ECAV7KI4",
+            "name": "Backwards Terrarium",
+            "description": "This terrarium will looks great in your white painted living room.",
+            "picture": "/static/img/products/terrarium.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 63,
+                "nanos": 450000000
+            }
+        },
+        {
+            "id": "2ZYFJ3GM25",
+            "name": "Backwards Film Camera",
+            "description": "This camera looks like it's a film camera, but it's actually digital.",
+            "picture": "/static/img/products/film-camera.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 5422
+            }
+        },
+        {
+            "id": "0PUK6V6EV6",
+            "name": "Backwards Record Player",
+            "description": "It still works.",
+            "picture": "/static/img/products/record-player.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 56,
+                "nanos": 500000000
+            }
+        },
+        {
+            "id": "LS4PSXUNU7",
+            "name": "Backwards Camping Mug",
+            "description": "You probably don't go camping that often but this is better than plastic cups.",
+            "picture": "/static/img/products/camp-mug.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 42,
+                "nanos": 330000000
+            }
+        },
+        {
+            "id": "9SIQT8TOJ8",
+            "name": "Backwards Bike",
+            "description": "This single gear bike probably cannot climb the hills of San Francisco.",
+            "picture": "/static/img/products/city-bike.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 987,
+                "nanos": 500000000
+            }
+        },
+        {
+            "id": "6E92ZMYYF9",
+            "name": "Backwards Plant",
+            "description": "Have you ever wondered whether air plants need water? Buy one and figure out.",
+            "picture": "/static/img/products/air-plant.jpg",
+            "priceUsd": {
+                "currencyCode": "USD",
+                "units": 21,
+                "nanos": 300000000
+            }
         }
     ]
 }

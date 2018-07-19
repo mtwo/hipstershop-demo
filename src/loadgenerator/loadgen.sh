@@ -8,4 +8,4 @@ if [[ -z "${FRONTEND_ADDR}" ]]; then
 fi
 
 set -x
-locust --host="http://${FRONTEND_ADDR}" --no-web -c "${USERS:-1000}"
+locust --host="http://${FRONTEND_ADDR}" --no-web -c "${USERS:-5000}"
