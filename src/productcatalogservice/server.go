@@ -89,7 +89,7 @@ var catalog = []*pb.Product{
 
 func main() {
 	go initTracing()
-	go initProfiling("productcatalogservice", "1.0.0")
+	go initProfiling("productcatalogservice", "1.0.1")
 	flag.Parse()
 
 	log.Printf("starting grpc server at :%d", *port)
