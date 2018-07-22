@@ -45,7 +45,7 @@ var catalog = []*pb.Product{
 	},
 	{
 		Id:          "L9ECAV7KIM",
-		Name:        "Terrarium",
+		Name:        "Fancy Terrarium",
 		Description: "This terrarium will looks great in your white painted living room.",
 		Picture:     "/static/img/products/terrarium.jpg",
 		PriceUsd:    &pb.Money{CurrencyCode: "USD", Units: 36, Nanos: 450000000},
