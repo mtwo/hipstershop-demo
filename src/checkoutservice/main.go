@@ -12,6 +12,7 @@ import (
 	"github.com/google/uuid"
 	"go.opencensus.io/exporter/stackdriver"
 	"go.opencensus.io/plugin/ocgrpc"
+	"go.opencensus.io/stats"
 	"go.opencensus.io/stats/view"
 	"go.opencensus.io/trace"
 	"google.golang.org/grpc"
@@ -36,9 +37,24 @@ type checkoutService struct {
 	paymentSvcAddr        string
 }
 
+var (
+	itemsPurchased *stats.Int64Measure
+)
+
 func main() {
 	go initTracing()
 	go initProfiling("checkoutservice", "1.0.0")
+
+	// Register new view
+	itemsPurchased = stats.Int64("example.com/measure/items_purchased", "Number of items purchased", stats.UnitBytes)
+	if err := view.Register(&view.View{
+		Name:        "example.com/views/items_purchased",
+		Description: "Number of items purchased",
+		Measure:     itemsPurchased,
+		Aggregation: view.Distribution(0, 1<<16, 1<<32),
+	}); err != nil {
+		log.Fatalf("Cannot register view: %v", err)
+	}
 
 	port := listenPort
 	if os.Getenv("PORT") != "" {
@@ -158,6 +174,9 @@ func (cs *checkoutService) PlaceOrder(ctx context.Context, req *pb.PlaceOrderReq
 		ShippingAddress:    req.Address,
 		Items:              prep.orderItems,
 	}
+
+	// Record custom stat
+	stats.Record(ctx, itemsPurchased.M(int64(len(prep.orderItems))))
 
 	if err := cs.sendOrderConfirmation(ctx, req.Email, orderResult); err != nil {
 		log.Printf("failed to send order confirmation to %q: %+v", req.Email, err)
