@@ -12,6 +12,7 @@ import (
 	"github.com/google/uuid"
 	"go.opencensus.io/exporter/stackdriver"
 	"go.opencensus.io/plugin/ocgrpc"
+	"go.opencensus.io/stats/view"
 	"go.opencensus.io/trace"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -72,6 +73,8 @@ func initTracing() {
 		if err != nil {
 			log.Printf("info: failed to initialize stackdriver exporter: %+v", err)
 		} else {
+			view.RegisterExporter(exporter)
+			view.Register(ocgrpc.DefaultServerViews)
 			trace.RegisterExporter(exporter)
 			trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
 			log.Print("registered stackdriver tracing")
