@@ -69,7 +69,7 @@ func initTracing() {
 			log.Printf("info: failed to initialize stackdriver exporter: %+v", err)
 		} else {
 			view.RegisterExporter(exporter)
-			view.Register(ocgrpc.DefaultServerViews)
+			view.Register(ocgrpc.DefaultServerViews...)
 			trace.RegisterExporter(exporter)
 			trace.ApplyConfig(trace.Config{DefaultSampler: trace.AlwaysSample()})
 			log.Print("registered stackdriver tracing")
