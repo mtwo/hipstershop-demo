@@ -46,7 +46,7 @@ func main() {
 	go initProfiling("checkoutservice", "1.0.0")
 
 	// Register new view
-	itemsPurchased = stats.Int64("example.com/measure/items_purchased", "Number of items purchased", stats.UnitBytes)
+	itemsPurchased = stats.Int64("example.com/measure/items_purchased", "Number of items purchased", stats.UnitNone)
 	if err := view.Register(&view.View{
 		Name:        "example.com/views/items_purchased",
 		Description: "Number of items purchased",
